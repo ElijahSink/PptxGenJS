@@ -1,4 +1,4 @@
-/* PptxGenJS 3.13.0-beta.1 @ 2025-03-24T03:24:15.717Z */
+/* PptxGenJS 3.13.0-beta.1 @ 2025-03-24T03:43:10.297Z */
 import JSZip from 'jszip';
 
 /******************************************************************************
@@ -5729,7 +5729,7 @@ function slideTransitionToXml(transition) {
             xml += " thruBlk=\"".concat(transition['throughBlack'] ? 1 : 0, "\"");
         return xml;
     };
-    xml += "<p:transition spd=".concat(speed, ">");
+    xml += "<p:transition spd=\"".concat(speed, "\">");
     xml += "<p:".concat(transition.type, " ").concat(typeAttrs(), "/>");
     xml += '</p:transition>';
     return xml;
