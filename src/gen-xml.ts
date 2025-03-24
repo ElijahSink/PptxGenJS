@@ -780,7 +780,7 @@ function slideTransitionToXml(transition?: SlideTransition): string {
 		return xml
 	}
 
-	xml += `<p:transition spd=${speed}>`
+	xml += `<p:transition spd="${speed}">`
 	xml += `<p:${transition.type} ${typeAttrs()}/>`
 	xml += '</p:transition>'
 	
