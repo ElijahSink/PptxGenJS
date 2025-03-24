@@ -26,6 +26,7 @@ import {
 	PresSlide,
 	ShadowProps,
 	SlideLayout,
+	SlideTransition,
 	TableCell,
 	TableCellProps,
 	TextProps,
@@ -754,6 +755,58 @@ function slideObjectToXml (slide: PresSlide | SlideLayout): string {
 
 	// LAST: Return
 	return strSlideXml
+}
+
+/**
+ * Generates XML for slide transitions
+ * @param {SlideTransition} transition - slide transition options
+ * @return {string} XML
+ */
+function slideTransitionToXml(transition?: SlideTransition): string {
+	if (!transition) return ''
+
+	const speed = transition.speed === 'medium' ? 'med' : transition.speed
+
+	let xml = ''
+
+	const typeAttrs = () => {
+		let xml = ''
+
+		if (transition['direction']) xml += ` dir="${getDirectionValue(transition['direction'])}"`
+		if (transition['orient']) xml += ` orient="${getDirectionValue(transition['orient'])}"`
+		if (transition['spokes']) xml += ` spokes="${transition['spokes']}"`
+		if (transition['throughBlack']) xml += ` thruBlk="${transition['throughBlack'] ? 1 : 0}"`
+
+		return xml
+	}
+
+	xml += `<p:transition spd=${speed}>`
+	xml += `<p:${transition.type} ${typeAttrs()}/>`
+	xml += '</p:transition>'
+	
+	return xml
+}
+
+/**
+ * Converts direction values from the TypeScript interface to OOXML attribute values
+ * @param {string} dir - direction value from transition object
+ * @return {string} OOXML-compatible direction value
+ */
+function getDirectionValue(dir: string): string {
+	const directionMap: Record<string, string> = {
+		'down': 'd',
+		'left': 'l',
+		'right': 'r',
+		'up': 'u',
+		'leftDown': 'ld',
+		'leftUp': 'lu',
+		'rightDown': 'rd',
+		'rightUp': 'ru',
+		'horizontal': 'horz',
+		'vertical': 'vert',
+	}
+
+	return directionMap[dir] || dir
 }
 
 /**
@@ -1551,7 +1604,9 @@ export function makeXmlSlide (slide: PresSlide): string {
 		'xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"' +
 		`${slide?.hidden ? ' show="0"' : ''}>` +
 		`${slideObjectToXml(slide)}` +
-		'<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>'
+		'<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>' +
+		`${slideTransitionToXml(slide.transition)}` +
+		'</p:sld>'
 	)
 }
 

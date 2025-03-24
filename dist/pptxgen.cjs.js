@@ -1,4 +1,4 @@
-/* PptxGenJS 3.13.0-beta.0 @ 2023-05-17T03:15:58.384Z */
+/* PptxGenJS 3.13.0-beta.1 @ 2025-03-24T03:24:15.714Z */
 'use strict';
 
 var JSZip = require('jszip');
@@ -5714,6 +5714,53 @@ function slideObjectToXml(slide) {
     return strSlideXml;
 }
 /**
+ * Generates XML for slide transitions
+ * @param {SlideTransition} transition - slide transition options
+ * @return {string} XML
+ */
+function slideTransitionToXml(transition) {
+    if (!transition)
+        return '';
+    var speed = transition.speed === 'medium' ? 'med' : transition.speed;
+    var xml = '';
+    var typeAttrs = function () {
+        var xml = '';
+        if (transition['direction'])
+            xml += " dir=\"".concat(getDirectionValue(transition['direction']), "\"");
+        if (transition['orient'])
+            xml += " orient=\"".concat(getDirectionValue(transition['orient']), "\"");
+        if (transition['spokes'])
+            xml += " spokes=\"".concat(transition['spokes'], "\"");
+        if (transition['throughBlack'])
+            xml += " thruBlk=\"".concat(transition['throughBlack'] ? 1 : 0, "\"");
+        return xml;
+    };
+    xml += "<p:transition spd=".concat(speed, ">");
+    xml += "<p:".concat(transition.type, " ").concat(typeAttrs(), "/>");
+    xml += '</p:transition>';
+    return xml;
+}
+/**
+ * Converts direction values from the TypeScript interface to OOXML attribute values
+ * @param {string} dir - direction value from transition object
+ * @return {string} OOXML-compatible direction value
+ */
+function getDirectionValue(dir) {
+    var directionMap = {
+        'down': 'd',
+        'left': 'l',
+        'right': 'r',
+        'up': 'u',
+        'leftDown': 'ld',
+        'leftUp': 'lu',
+        'rightDown': 'rd',
+        'rightUp': 'ru',
+        'horizontal': 'horz',
+        'vertical': 'vert',
+    };
+    return directionMap[dir] || dir;
+}
+/**
  * Transforms slide relations to XML string.
  * Extra relations that are not dynamic can be passed using the 2nd arg (e.g. theme relation in master file).
  * These relations use rId series that starts with 1-increased maximum of rIds used for dynamic relations.
@@ -6430,7 +6477,9 @@ function makeXmlSlide(slide) {
         'xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"' +
         "".concat((slide === null || slide === void 0 ? void 0 : slide.hidden) ? ' show="0"' : '', ">") +
         "".concat(slideObjectToXml(slide)) +
-        '<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>');
+        '<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>' +
+        "".concat(slideTransitionToXml(slide.transition)) +
+        '</p:sld>');
 }
 /**
  * Get text content of Notes from Slide
@@ -6713,7 +6762,7 @@ function makeXmlViewProps() {
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  */
-var VERSION = '3.13.0-beta.0-20230416-2140';
+var VERSION = '3.13.0-beta.1';
 var PptxGenJS = /** @class */ (function () {
     function PptxGenJS() {
         var _this = this;
