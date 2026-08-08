@@ -685,6 +685,7 @@ export default class PptxGenJS implements IPresentationProps {
 		})
 
 		// A: Add slide to pres
+		if (typeof options === 'object' && options?.transition) newSlide.transition = options.transition
 		this._slides.push(newSlide)
 
 		// B: Sections

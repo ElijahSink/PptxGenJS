@@ -2560,10 +2560,220 @@ declare namespace PptxGenJS {
 		 * Slide number options
 		 */
 		slideNumber?: SlideNumberProps
+		/**
+		 * Slide transition
+		 * @example { type: 'fade', speed: 'slow' }
+		 */
+		transition?: SlideTransition
 	}
+	// Direction type for transitions that use "d", "l", "r", "u"
+	export type TransitionDirectionCardinal = 'down' | 'd' | 'left' | 'l' | 'right' | 'r' | 'up' | 'u'
+
+	// Direction type for transitions that use "ld", "lu", "rd", "ru"
+	export type TransitionDirectionDiagonal = 'leftDown' | 'ld' | 'leftUp' | 'lu' | 'rightDown' | 'rd' | 'rightUp' | 'ru'
+
+	// Direction type for transitions that use "in" and "out"
+	export type TransitionDirectionInOut = 'in' | 'out'
+
+	// Direction type for transitions that use "horz" and "vert"
+	export type TransitionDirectionOrientation = 'horizontal' | 'horz' | 'vertical' | 'vert'
+
+	// Base transition properties
+	export interface TransitionBase {
+		/**
+		 * Transition speed
+		 */
+		speed: 'fast' | 'medium' | 'med' | 'slow'
+	}
+
+	// Specific transition types with their required attributes
+	export type TransitionBlinds = TransitionBase & {
+		type: 'blinds'
+		/**
+		 * Direction: horizontal or vertical
+		 */
+		dir: TransitionDirectionOrientation
+	}
+
+	export type TransitionChecker = TransitionBase & {
+		type: 'checker'
+		/**
+		 * Direction: horizontal or vertical
+		 */
+		dir: TransitionDirectionOrientation
+	}
+
+	export type TransitionCircle = TransitionBase & {
+		type: 'circle'
+	}
+
+	export type TransitionComb = TransitionBase & {
+		type: 'comb'
+		/**
+		 * Direction: horizontal or vertical
+		 */
+		dir: TransitionDirectionOrientation
+	}
+
+	export type TransitionCover = TransitionBase & {
+		type: 'cover'
+		/**
+		 * Direction: down, left, right, up, leftDown, leftUp, rightDown, rightUp
+		 */
+		dir: TransitionDirectionCardinal | TransitionDirectionDiagonal
+	}
+
+	export type TransitionCut = TransitionBase & {
+		type: 'cut'
+		/**
+		 * Through black
+		 * - Whether to transition through black
+		 * @default false
+		 */
+		throughBlack?: boolean
+	}
+
+	export type TransitionDiamond = TransitionBase & {
+		type: 'diamond'
+	}
+
+	export type TransitionDissolve = TransitionBase & {
+		type: 'dissolve'
+	}
+
+	export type TransitionFade = TransitionBase & {
+		type: 'fade'
+		/**
+		 * Through black
+		 * - Whether to transition through black
+		 * @default false
+		 */
+		throughBlack?: boolean
+	}
+
+	export type TransitionNewsflash = TransitionBase & {
+		type: 'newsflash'
+	}
+
+	export type TransitionPlus = TransitionBase & {
+		type: 'plus'
+	}
+
+	export type TransitionPull = TransitionBase & {
+		type: 'pull'
+		/**
+		 * Direction: down, left, right, up, leftDown, leftUp, rightDown, rightUp
+		 */
+		dir: TransitionDirectionCardinal | TransitionDirectionDiagonal
+	}
+
+	export type TransitionPush = TransitionBase & {
+		type: 'push'
+		/**
+		 * Direction: down, left, right, up
+		 */
+		dir: TransitionDirectionCardinal
+	}
+
+	export type TransitionRandom = TransitionBase & {
+		type: 'random'
+	}
+
+	export type TransitionRandomBar = TransitionBase & {
+		type: 'randomBar'
+		/**
+		 * Direction: horizontal or vertical
+		 */
+		dir: TransitionDirectionOrientation
+	}
+
+	export type TransitionSplit = TransitionBase & {
+		type: 'split'
+		/**
+		 * Direction: in or out
+		 * @default 'out'
+		 */
+		dir: TransitionDirectionInOut
+		/**
+		 * Orientation: horizontal or vertical
+		 */
+		orient: TransitionDirectionOrientation
+	}
+
+	export type TransitionStrips = TransitionBase & {
+		type: 'strips'
+		/**
+		 * Direction: leftDown, leftUp, rightDown, rightUp
+		 */
+		dir: TransitionDirectionDiagonal
+	}
+
+	export type TransitionWedge = TransitionBase & {
+		type: 'wedge'
+	}
+
+	export type TransitionWheel = TransitionBase & {
+		type: 'wheel'
+		/**
+		 * Number of spokes in the wheel
+		 */
+		spokes: number
+	}
+
+	export type TransitionWipe = TransitionBase & {
+		type: 'wipe'
+		/**
+		 * Direction: down, left, right, up
+		 */
+		dir: TransitionDirectionCardinal
+	}
+
+	export type TransitionZoom = TransitionBase & {
+		type: 'zoom'
+		/**
+		 * Direction: in or out
+		 */
+		dir: TransitionDirectionInOut
+	}
+
+	/**
+	 * Slide transition
+	 * - OOXML standard implementation for PowerPoint slide transitions
+	 * @see {@link http://officeopenxml.com/prSlide-transitions.php}
+	 * @example { type: 'fade', speed: 'slow' }
+	 * @example { type: 'wipe', dir: 'up' }
+	 * @example { type: 'wheel', spokes: 4 }
+	 */
+	export type SlideTransition =
+		| TransitionBlinds
+		| TransitionChecker
+		| TransitionCircle
+		| TransitionComb
+		| TransitionCover
+		| TransitionCut
+		| TransitionDiamond
+		| TransitionDissolve
+		| TransitionFade
+		| TransitionNewsflash
+		| TransitionPlus
+		| TransitionPull
+		| TransitionPush
+		| TransitionRandom
+		| TransitionRandomBar
+		| TransitionSplit
+		| TransitionStrips
+		| TransitionWedge
+		| TransitionWheel
+		| TransitionWipe
+		| TransitionZoom
 	export interface AddSlideProps {
 		masterName?: string // TODO: 20200528: rename to "masterTitle" (createMaster uses `title` so lets be consistent)
 		sectionTitle?: string
+		/**
+		 * Slide transition
+		 * @example { type: 'fade', speed: 'slow' }
+		 */
+		transition?: SlideTransition
 	}
 	export interface PresentationProps {
 		author: string
@@ -2616,6 +2826,13 @@ declare namespace PptxGenJS {
 		 * Slide number options
 		 */
 		slideNumber: SlideNumberProps
+		/**
+		 * Slide transition
+		 * @example slide.transition = { type: 'fade', speed: 'slow' }
+		 * @example slide.transition = { type: 'wipe', speed: 'fast', dir: 'up' }
+		 * @see {@link http://officeopenxml.com/prSlide-transitions.php}
+		 */
+		transition: SlideTransition
 		/**
 		 * New slides added by an auto paged table
 		 */

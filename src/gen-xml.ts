@@ -26,6 +26,7 @@ import {
 	PresSlide,
 	ShadowProps,
 	SlideLayout,
+	SlideTransition,
 	TableCell,
 	TableCellProps,
 	TextProps,
@@ -754,6 +755,50 @@ function slideObjectToXml (slide: PresSlide | SlideLayout): string {
 
 	// LAST: Return
 	return strSlideXml
+}
+
+/**
+ * Converts a friendly direction value into its OOXML attribute value
+ * @param {string} dir - direction value from a transition object
+ * @return {string} OOXML-compatible direction value
+ */
+function getDirectionValue (dir: string): string {
+	const directionMap: Record<string, string> = {
+		down: 'd',
+		left: 'l',
+		right: 'r',
+		up: 'u',
+		leftDown: 'ld',
+		leftUp: 'lu',
+		rightDown: 'rd',
+		rightUp: 'ru',
+		horizontal: 'horz',
+		vertical: 'vert',
+	}
+
+	return directionMap[dir] || dir
+}
+
+/**
+ * Generates XML for a slide transition
+ * @param {SlideTransition} transition - slide transition options
+ * @return {string} XML
+ */
+function slideTransitionToXml (transition?: SlideTransition): string {
+	if (!transition?.type) return ''
+
+	// NOTE: `medium` is the friendly name for the OOXML `med` value
+	const speed = transition.speed === 'medium' ? 'med' : transition.speed
+
+	let strAttrs = ''
+	// NOTE: `direction` is accepted as an alias for `dir` (the documented prop) for back-compat
+	const dir = 'dir' in transition ? transition.dir : (transition as { direction?: string }).direction
+	if (dir) strAttrs += ` dir="${getDirectionValue(dir)}"`
+	if ('orient' in transition && transition.orient) strAttrs += ` orient="${getDirectionValue(transition.orient)}"`
+	if ('spokes' in transition && transition.spokes) strAttrs += ` spokes="${transition.spokes}"`
+	if ('throughBlack' in transition && transition.throughBlack) strAttrs += ' thruBlk="1"'
+
+	return `<p:transition${speed ? ` spd="${speed}"` : ''}><p:${transition.type}${strAttrs}/></p:transition>`
 }
 
 /**
@@ -1563,7 +1608,9 @@ export function makeXmlSlide (slide: PresSlide): string {
 		'xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"' +
 		`${slide?.hidden ? ' show="0"' : ''}>` +
 		`${slideObjectToXml(slide)}` +
-		'<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>'
+		'<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>' +
+		// NOTE: per the schema, `p:transition` must follow `p:clrMapOvr`
+		`${slideTransitionToXml(slide.transition)}</p:sld>`
 	)
 }
 

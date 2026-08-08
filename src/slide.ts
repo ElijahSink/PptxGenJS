@@ -22,6 +22,7 @@ import {
 	ShapeProps,
 	SlideLayout,
 	SlideNumberProps,
+	SlideTransition,
 	TableProps,
 	TableRow,
 	TextProps,
@@ -151,6 +152,22 @@ export default class Slide {
 
 	public get slideNumber(): SlideNumberProps {
 		return this._slideNumberProps
+	}
+
+	/**
+	 * Slide transition
+	 * @type {SlideTransition}
+	 * @example slide.transition = { type: 'fade', speed: 'slow' }
+	 * @example slide.transition = { type: 'wipe', speed: 'fast', dir: 'up' }
+	 * @see {@link http://officeopenxml.com/prSlide-transitions.php}
+	 */
+	private _transition: SlideTransition
+	public set transition (value: SlideTransition) {
+		this._transition = value
+	}
+
+	public get transition (): SlideTransition {
+		return this._transition
 	}
 
 	public get newAutoPagedSlides(): PresSlide[] {
