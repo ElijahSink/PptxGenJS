@@ -1803,7 +1803,7 @@ export type TransitionBlinds = TransitionBase & {
 	/**
 	 * Direction: horizontal or vertical
 	 */
-	dir: TransitionDirectionOrientation
+	direction: TransitionDirectionOrientation
 }
 
 export type TransitionChecker = TransitionBase & {
@@ -1811,7 +1811,7 @@ export type TransitionChecker = TransitionBase & {
 	/**
 	 * Direction: horizontal or vertical
 	 */
-	dir: TransitionDirectionOrientation
+	direction: TransitionDirectionOrientation
 }
 
 export type TransitionCircle = TransitionBase & {
@@ -1823,7 +1823,7 @@ export type TransitionComb = TransitionBase & {
 	/**
 	 * Direction: horizontal or vertical
 	 */
-	dir: TransitionDirectionOrientation
+	direction: TransitionDirectionOrientation
 }
 
 export type TransitionCover = TransitionBase & {
@@ -1831,7 +1831,7 @@ export type TransitionCover = TransitionBase & {
 	/**
 	 * Direction: down, left, right, up, leftDown, leftUp, rightDown, rightUp
 	 */
-	dir: TransitionDirectionCardinal | TransitionDirectionDiagonal
+	direction: TransitionDirectionCardinal | TransitionDirectionDiagonal
 }
 
 export type TransitionCut = TransitionBase & {
@@ -1875,7 +1875,7 @@ export type TransitionPull = TransitionBase & {
 	/**
 	 * Direction: down, left, right, up, leftDown, leftUp, rightDown, rightUp
 	 */
-	dir: TransitionDirectionCardinal | TransitionDirectionDiagonal
+	direction: TransitionDirectionCardinal | TransitionDirectionDiagonal
 }
 
 export type TransitionPush = TransitionBase & {
@@ -1883,7 +1883,7 @@ export type TransitionPush = TransitionBase & {
 	/**
 	 * Direction: down, left, right, up
 	 */
-	dir: TransitionDirectionCardinal
+	direction: TransitionDirectionCardinal
 }
 
 export type TransitionRandom = TransitionBase & {
@@ -1895,7 +1895,7 @@ export type TransitionRandomBar = TransitionBase & {
 	/**
 	 * Direction: horizontal or vertical
 	 */
-	dir: TransitionDirectionOrientation
+	direction: TransitionDirectionOrientation
 }
 
 export type TransitionSplit = TransitionBase & {
@@ -1904,7 +1904,7 @@ export type TransitionSplit = TransitionBase & {
 	 * Direction: in or out
 	 * @default 'out'
 	 */
-	dir: TransitionDirectionInOut
+	direction: TransitionDirectionInOut
 	/**
 	 * Orientation: horizontal or vertical
 	 */
@@ -1916,7 +1916,7 @@ export type TransitionStrips = TransitionBase & {
 	/**
 	 * Direction: leftDown, leftUp, rightDown, rightUp
 	 */
-	dir: TransitionDirectionDiagonal
+	direction: TransitionDirectionDiagonal
 }
 
 export type TransitionWedge = TransitionBase & {
@@ -1936,7 +1936,7 @@ export type TransitionWipe = TransitionBase & {
 	/**
 	 * Direction: down, left, right, up
 	 */
-	dir: TransitionDirectionCardinal
+	direction: TransitionDirectionCardinal
 }
 
 export type TransitionZoom = TransitionBase & {
@@ -1944,7 +1944,7 @@ export type TransitionZoom = TransitionBase & {
 	/**
 	 * Direction: in or out
 	 */
-	dir: TransitionDirectionInOut
+	direction: TransitionDirectionInOut
 }
 
 /**
@@ -1952,7 +1952,7 @@ export type TransitionZoom = TransitionBase & {
  * - OOXML standard implementation for PowerPoint slide transitions
  * @see {@link http://officeopenxml.com/prSlide-transitions.php}
  * @example { type: 'fade', speed: 'slow' }
- * @example { type: 'wipe', dir: 'up' }
+ * @example { type: 'wipe', direction: 'up' }
  * @example { type: 'wheel', spokes: 4 }
  */
 export type SlideTransition =

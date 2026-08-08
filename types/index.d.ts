@@ -2592,7 +2592,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: horizontal or vertical
 		 */
-		dir: TransitionDirectionOrientation
+		direction: TransitionDirectionOrientation
 	}
 
 	export type TransitionChecker = TransitionBase & {
@@ -2600,7 +2600,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: horizontal or vertical
 		 */
-		dir: TransitionDirectionOrientation
+		direction: TransitionDirectionOrientation
 	}
 
 	export type TransitionCircle = TransitionBase & {
@@ -2612,7 +2612,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: horizontal or vertical
 		 */
-		dir: TransitionDirectionOrientation
+		direction: TransitionDirectionOrientation
 	}
 
 	export type TransitionCover = TransitionBase & {
@@ -2620,7 +2620,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: down, left, right, up, leftDown, leftUp, rightDown, rightUp
 		 */
-		dir: TransitionDirectionCardinal | TransitionDirectionDiagonal
+		direction: TransitionDirectionCardinal | TransitionDirectionDiagonal
 	}
 
 	export type TransitionCut = TransitionBase & {
@@ -2664,7 +2664,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: down, left, right, up, leftDown, leftUp, rightDown, rightUp
 		 */
-		dir: TransitionDirectionCardinal | TransitionDirectionDiagonal
+		direction: TransitionDirectionCardinal | TransitionDirectionDiagonal
 	}
 
 	export type TransitionPush = TransitionBase & {
@@ -2672,7 +2672,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: down, left, right, up
 		 */
-		dir: TransitionDirectionCardinal
+		direction: TransitionDirectionCardinal
 	}
 
 	export type TransitionRandom = TransitionBase & {
@@ -2684,7 +2684,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: horizontal or vertical
 		 */
-		dir: TransitionDirectionOrientation
+		direction: TransitionDirectionOrientation
 	}
 
 	export type TransitionSplit = TransitionBase & {
@@ -2693,7 +2693,7 @@ declare namespace PptxGenJS {
 		 * Direction: in or out
 		 * @default 'out'
 		 */
-		dir: TransitionDirectionInOut
+		direction: TransitionDirectionInOut
 		/**
 		 * Orientation: horizontal or vertical
 		 */
@@ -2705,7 +2705,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: leftDown, leftUp, rightDown, rightUp
 		 */
-		dir: TransitionDirectionDiagonal
+		direction: TransitionDirectionDiagonal
 	}
 
 	export type TransitionWedge = TransitionBase & {
@@ -2725,7 +2725,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: down, left, right, up
 		 */
-		dir: TransitionDirectionCardinal
+		direction: TransitionDirectionCardinal
 	}
 
 	export type TransitionZoom = TransitionBase & {
@@ -2733,7 +2733,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Direction: in or out
 		 */
-		dir: TransitionDirectionInOut
+		direction: TransitionDirectionInOut
 	}
 
 	/**
@@ -2741,7 +2741,7 @@ declare namespace PptxGenJS {
 	 * - OOXML standard implementation for PowerPoint slide transitions
 	 * @see {@link http://officeopenxml.com/prSlide-transitions.php}
 	 * @example { type: 'fade', speed: 'slow' }
-	 * @example { type: 'wipe', dir: 'up' }
+	 * @example { type: 'wipe', direction: 'up' }
 	 * @example { type: 'wheel', spokes: 4 }
 	 */
 	export type SlideTransition =
@@ -2829,7 +2829,7 @@ declare namespace PptxGenJS {
 		/**
 		 * Slide transition
 		 * @example slide.transition = { type: 'fade', speed: 'slow' }
-		 * @example slide.transition = { type: 'wipe', speed: 'fast', dir: 'up' }
+		 * @example slide.transition = { type: 'wipe', speed: 'fast', direction: 'up' }
 		 * @see {@link http://officeopenxml.com/prSlide-transitions.php}
 		 */
 		transition: SlideTransition

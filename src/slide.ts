@@ -158,7 +158,7 @@ export default class Slide {
 	 * Slide transition
 	 * @type {SlideTransition}
 	 * @example slide.transition = { type: 'fade', speed: 'slow' }
-	 * @example slide.transition = { type: 'wipe', speed: 'fast', dir: 'up' }
+	 * @example slide.transition = { type: 'wipe', speed: 'fast', direction: 'up' }
 	 * @see {@link http://officeopenxml.com/prSlide-transitions.php}
 	 */
 	private _transition: SlideTransition

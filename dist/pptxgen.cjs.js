@@ -1,4 +1,4 @@
-/* PptxGenJS 4.0.1 @ 2026-08-08T21:45:29.602Z */
+/* PptxGenJS 4.0.1 @ 2026-08-08T22:10:37.306Z */
 'use strict';
 
 var JSZip = require('jszip');
@@ -5759,10 +5759,10 @@ function slideTransitionToXml(transition) {
     // NOTE: `medium` is the friendly name for the OOXML `med` value
     const speed = transition.speed === 'medium' ? 'med' : transition.speed;
     let strAttrs = '';
-    // NOTE: `direction` is accepted as an alias for `dir` (the documented prop) for back-compat
-    const dir = 'dir' in transition ? transition.dir : transition.direction;
-    if (dir)
-        strAttrs += ` dir="${getDirectionValue(dir)}"`;
+    // NOTE: `dir` is accepted as an alias for `direction` (the documented prop) as it matches the OOXML attribute
+    const direction = 'direction' in transition ? transition.direction : transition.dir;
+    if (direction)
+        strAttrs += ` dir="${getDirectionValue(direction)}"`;
     if ('orient' in transition && transition.orient)
         strAttrs += ` orient="${getDirectionValue(transition.orient)}"`;
     if ('spokes' in transition && transition.spokes)

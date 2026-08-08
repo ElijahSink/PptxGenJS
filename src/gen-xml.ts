@@ -791,9 +791,9 @@ function slideTransitionToXml (transition?: SlideTransition): string {
 	const speed = transition.speed === 'medium' ? 'med' : transition.speed
 
 	let strAttrs = ''
-	// NOTE: `direction` is accepted as an alias for `dir` (the documented prop) for back-compat
-	const dir = 'dir' in transition ? transition.dir : (transition as { direction?: string }).direction
-	if (dir) strAttrs += ` dir="${getDirectionValue(dir)}"`
+	// NOTE: `dir` is accepted as an alias for `direction` (the documented prop) as it matches the OOXML attribute
+	const direction = 'direction' in transition ? transition.direction : (transition as { dir?: string }).dir
+	if (direction) strAttrs += ` dir="${getDirectionValue(direction)}"`
 	if ('orient' in transition && transition.orient) strAttrs += ` orient="${getDirectionValue(transition.orient)}"`
 	if ('spokes' in transition && transition.spokes) strAttrs += ` spokes="${transition.spokes}"`
 	if ('throughBlack' in transition && transition.throughBlack) strAttrs += ' thruBlk="1"'
