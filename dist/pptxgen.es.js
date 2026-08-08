@@ -1,4 +1,4 @@
-/* PptxGenJS 4.0.1 @ 2025-06-25T23:35:35.098Z */
+/* PptxGenJS 4.0.1 @ 2026-08-08T21:45:30.746Z */
 import JSZip from 'jszip';
 
 /******************************************************************************
@@ -2816,6 +2816,12 @@ class Slide {
     }
     get slideNumber() {
         return this._slideNumberProps;
+    }
+    set transition(value) {
+        this._transition = value;
+    }
+    get transition() {
+        return this._transition;
     }
     get newAutoPagedSlides() {
         return this._newAutoPagedSlides;
@@ -5721,6 +5727,49 @@ function slideObjectToXml(slide) {
     return strSlideXml;
 }
 /**
+ * Converts a friendly direction value into its OOXML attribute value
+ * @param {string} dir - direction value from a transition object
+ * @return {string} OOXML-compatible direction value
+ */
+function getDirectionValue(dir) {
+    const directionMap = {
+        down: 'd',
+        left: 'l',
+        right: 'r',
+        up: 'u',
+        leftDown: 'ld',
+        leftUp: 'lu',
+        rightDown: 'rd',
+        rightUp: 'ru',
+        horizontal: 'horz',
+        vertical: 'vert',
+    };
+    return directionMap[dir] || dir;
+}
+/**
+ * Generates XML for a slide transition
+ * @param {SlideTransition} transition - slide transition options
+ * @return {string} XML
+ */
+function slideTransitionToXml(transition) {
+    if (!(transition === null || transition === void 0 ? void 0 : transition.type))
+        return '';
+    // NOTE: `medium` is the friendly name for the OOXML `med` value
+    const speed = transition.speed === 'medium' ? 'med' : transition.speed;
+    let strAttrs = '';
+    // NOTE: `direction` is accepted as an alias for `dir` (the documented prop) for back-compat
+    const dir = 'dir' in transition ? transition.dir : transition.direction;
+    if (dir)
+        strAttrs += ` dir="${getDirectionValue(dir)}"`;
+    if ('orient' in transition && transition.orient)
+        strAttrs += ` orient="${getDirectionValue(transition.orient)}"`;
+    if ('spokes' in transition && transition.spokes)
+        strAttrs += ` spokes="${transition.spokes}"`;
+    if ('throughBlack' in transition && transition.throughBlack)
+        strAttrs += ' thruBlk="1"';
+    return `<p:transition${speed ? ` spd="${speed}"` : ''}><p:${transition.type}${strAttrs}/></p:transition>`;
+}
+/**
  * Transforms slide relations to XML string.
  * Extra relations that are not dynamic can be passed using the 2nd arg (e.g. theme relation in master file).
  * These relations use rId series that starts with 1-increased maximum of rIds used for dynamic relations.
@@ -6495,7 +6544,9 @@ function makeXmlSlide(slide) {
         'xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"' +
         `${(slide === null || slide === void 0 ? void 0 : slide.hidden) ? ' show="0"' : ''}>` +
         `${slideObjectToXml(slide)}` +
-        '<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>');
+        '<p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>' +
+        // NOTE: per the schema, `p:transition` must follow `p:clrMapOvr`
+        `${slideTransitionToXml(slide.transition)}</p:sld>`);
 }
 /**
  * Get text content of Notes from Slide
@@ -7265,6 +7316,8 @@ class PptxGenJS {
             slideLayout,
         });
         // A: Add slide to pres
+        if (typeof options === 'object' && (options === null || options === void 0 ? void 0 : options.transition))
+            newSlide.transition = options.transition;
         this._slides.push(newSlide);
         // B: Sections
         // B-1: Add slide to section (if any provided)
