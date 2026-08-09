@@ -1,5 +1,9 @@
 name: Publish to npm
 
+# Authentication is npm Trusted Publishing (OIDC) - there is no NPM_TOKEN.
+# npmjs.com must have a Trusted Publisher configured for this package pointing at
+# this repo and this workflow filename; see PUBLISHING.md.
+
 on:
   push:
     tags:
@@ -11,20 +15,28 @@ on:
         type: boolean
         default: true
 
+permissions:
+  id-token: write # required to mint the OIDC token
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write # required for npm provenance
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: '22' # trusted publishing needs >= 22.14.0
           registry-url: 'https://registry.npmjs.org'
-          cache: npm
+          package-manager-cache: false # npm advises against caching in release builds
+
+      # Trusted publishing needs npm >= 11.5.1, which is newer than the CLI
+      # bundled with Node 22.
+      - name: Upgrade npm
+        run: |
+          npm install -g npm@latest
+          npm --version
 
       - name: Install dependencies
         run: npm ci
@@ -57,8 +69,7 @@ jobs:
       - name: Pack and show contents
         run: npm pack --dry-run
 
+      # No --provenance flag: trusted publishing attaches provenance automatically.
       - name: Publish
         if: github.ref_type == 'tag' && github.event.inputs.dry_run != 'true'
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
