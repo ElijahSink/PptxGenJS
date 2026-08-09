@@ -1,5 +1,5 @@
-// Type definitions for pptxgenjs 4.0.1
-// Project: https://gitbrent.github.io/PptxGenJS/
+// Type definitions for @elijahsink/pptxgenjs 4.1.0
+// Project: https://github.com/ElijahSink/PptxGenJS
 // Definitions by: Brent Ely <https://github.com/gitbrent/>
 //                 Michael Beaumont <https://github.com/michaelbeaumont>
 //                 Nicholas Tietz-Sokolsky <https://github.com/ntietz>
