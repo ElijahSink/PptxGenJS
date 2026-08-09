@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.1.0](https://github.com/ElijahSink/PptxGenJS/releases/tag/v4.1.0) - 2026-08-09
 
-> First release of the `@elijahsink/pptxgenjs` fork, tracking upstream v4.0.1.
+> First release of the `@ejsink/pptxgenjs` fork, tracking upstream v4.0.1.
 
 ### Added
 

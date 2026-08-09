@@ -1,12 +1,12 @@
-# @elijahsink/pptxgenjs
+# @ejsink/pptxgenjs
 
-> **This is a fork of [gitbrent/PptxGenJS](https://github.com/gitbrent/PptxGenJS), published as `@elijahsink/pptxgenjs`.**
+> **This is a fork of [gitbrent/PptxGenJS](https://github.com/gitbrent/PptxGenJS), published as `@ejsink/pptxgenjs`.**
 > It tracks upstream v4.0.1 and adds slide transition support, which upstream does not provide.
 > All credit for the library belongs to [Brent Ely](https://github.com/gitbrent/) and its contributors; it remains MIT licensed.
 > For anything other than slide transitions, prefer the upstream [`pptxgenjs`](https://www.npmjs.com/package/pptxgenjs) package.
 
 ```bash
-npm install @elijahsink/pptxgenjs
+npm install @ejsink/pptxgenjs
 ```
 
 ### Slide transitions (fork-only)

@@ -1,6 +1,6 @@
-# Publishing `@elijahsink/pptxgenjs`
+# Publishing `@ejsink/pptxgenjs`
 
-This fork publishes to npm as **`@elijahsink/pptxgenjs`** via
+This fork publishes to npm as **`@ejsink/pptxgenjs`** via
 [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers) (OIDC).
 There is no npm token stored anywhere - GitHub Actions mints a short-lived
 OIDC token at publish time, and npm verifies it came from this repo and this
@@ -76,6 +76,6 @@ exact tarball contents. Useful after changing the build or the `files` field.
   bundles - hence the explicit `npm install -g npm@latest` step.
 - **`package.json` `repository`** must point at this fork for provenance to
   verify. It does.
-- **Scope.** `@elijahsink/*` publishes only if the npm account owns that scope.
+- **Scope.** `@ejsink/*` publishes only if the npm account owns that scope.
   `publishConfig.access: public` is set because scoped packages default to
   restricted, which a free account cannot publish.
