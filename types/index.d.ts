@@ -1,4 +1,4 @@
-// Type definitions for @ejsink/pptxgenjs 4.1.0
+// Type definitions for @ejsink/pptxgenjs 4.1.1
 // Project: https://github.com/ElijahSink/PptxGenJS
 // Definitions by: Brent Ely <https://github.com/gitbrent/>
 //                 Michael Beaumont <https://github.com/michaelbeaumont>

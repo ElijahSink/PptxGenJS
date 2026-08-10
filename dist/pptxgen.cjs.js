@@ -1,4 +1,4 @@
-/* PptxGenJS 4.1.0 @ 2026-08-09T21:35:56.373Z */
+/* PptxGenJS 4.1.1 @ 2026-08-10T04:34:56.785Z */
 'use strict';
 
 var JSZip = require('jszip');
@@ -6838,7 +6838,7 @@ function makeXmlViewProps() {
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *  SOFTWARE.
  */
-const VERSION = '4.1.0';
+const VERSION = '4.1.1';
 class PptxGenJS {
     set layout(value) {
         const newLayout = this.LAYOUTS[value];
