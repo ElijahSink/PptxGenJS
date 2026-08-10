@@ -1,4 +1,32 @@
-# PptxGenJS
+# @ejsink/pptxgenjs
+
+> **This is a fork of [gitbrent/PptxGenJS](https://github.com/gitbrent/PptxGenJS), published as `@ejsink/pptxgenjs`.**
+> It tracks upstream v4.0.1 and adds slide transition support, which upstream does not provide.
+> All credit for the library belongs to [Brent Ely](https://github.com/gitbrent/) and its contributors; it remains MIT licensed.
+> For anything other than slide transitions, prefer the upstream [`pptxgenjs`](https://www.npmjs.com/package/pptxgenjs) package.
+
+```bash
+npm install @ejsink/pptxgenjs
+```
+
+### Slide transitions (fork-only)
+
+Set `transition` on a slide, or pass it to `addSlide()`:
+
+```js
+const slide = pptx.addSlide({ transition: { type: 'wipe', speed: 'fast', direction: 'right' } });
+
+// or
+slide.transition = { type: 'fade', speed: 'slow' };
+```
+
+`type` is one of `blinds`, `checker`, `circle`, `comb`, `cover`, `cut`, `diamond`, `dissolve`, `fade`,
+`newsflash`, `plus`, `pull`, `push`, `random`, `randomBar`, `split`, `strips`, `wedge`, `wheel`, `wipe`, `zoom`.
+`speed` is `fast`, `medium`, or `slow`. Transitions that take a direction accept friendly names
+(`up`, `leftDown`, `horizontal`, ...) as well as the raw OOXML codes (`u`, `ld`, `horz`, ...);
+TypeScript narrows the valid directions per transition type.
+
+---
 
 ![PptxGenJS Sample Slides](https://raw.githubusercontent.com/gitbrent/PptxGenJS/gh-pages/img/readme_banner.png)
 

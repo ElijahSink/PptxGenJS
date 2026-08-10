@@ -15,3 +15,6 @@ demo
 build
 docs
 static
+
+# npm pack output
+*.tgz

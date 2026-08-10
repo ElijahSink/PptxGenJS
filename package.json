@@ -1,12 +1,12 @@
 {
-	"name": "pptxgenjs",
-	"version": "4.0.1",
+	"name": "@ejsink/pptxgenjs",
+	"version": "4.1.0",
 	"author": {
 		"name": "Brent Ely",
 		"url": "https://github.com/gitbrent/"
 	},
-	"description": "Create JavaScript PowerPoint Presentations",
-	"homepage": "https://gitbrent.github.io/PptxGenJS/",
+	"description": "Create JavaScript PowerPoint Presentations - fork of pptxgenjs adding slide transition support",
+	"homepage": "https://github.com/ElijahSink/PptxGenJS#readme",
 	"license": "MIT",
 	"exports": {
 		"types": "./types/index.d.ts",
@@ -25,7 +25,8 @@
 		"start": "gulp",
 		"ship": "gulp ship",
 		"defs": "gulp reactTestDefs",
-		"watch": "rollup -cw"
+		"watch": "rollup -cw",
+		"dist": "gulp build && gulp min && gulp cjs && gulp es && gulp bundle"
 	},
 	"browser": {
 		"express": false,
@@ -67,7 +68,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/gitbrent/PptxGenJS.git"
+		"url": "git+https://github.com/ElijahSink/PptxGenJS.git"
 	},
 	"keywords": [
 		"es6-powerpoint",
@@ -91,6 +92,15 @@
 		"typescript-powerpoint"
 	],
 	"bugs": {
-		"url": "https://github.com/gitbrent/PptxGenJS/issues"
+		"url": "https://github.com/ElijahSink/PptxGenJS/issues"
+	},
+	"contributors": [
+		{
+			"name": "Elijah Sink",
+			"url": "https://github.com/ElijahSink/"
+		}
+	],
+	"publishConfig": {
+		"access": "public"
 	}
 }
